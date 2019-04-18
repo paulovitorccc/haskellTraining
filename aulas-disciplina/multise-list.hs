@@ -95,9 +95,13 @@ inclusion (x:xs) bag2
 {-
  - Realiza a soma deste Bag com otherBag. A soma de dois bags contem os elementos dos dois bags com suas quantidades somadas. 
 -}
-sum bag1 bag2 = undefined
+sumAux [] _ = []
+sumAux (x:xs) bag2 = [(fst x, snd x + qtdB2ToSum)] ++ sumAux xs bag2 
+    where qtdB2ToSum = search (fst x) bag2
+sum bag1 bag2 = (sumAux bag1 bag2) ++ [x | x <- bag2, (search (fst x) bag1) == 0]  
 
 {-
  - Retorna a quantidade total de elementos no Bag
 -}
-size bag = undefined
+size [] = 0
+size (x:xs) = (snd x) + size xs

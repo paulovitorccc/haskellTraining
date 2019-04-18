@@ -97,4 +97,5 @@ sum bag1 bag2 = Map.unionWithKey fSum bag1 bag2
 {-
  - Retorna a quantidade total de elementos no Bag
 -}
-size bag = Map.size bag
+fSize a len = len + a
+size bag = Map.foldr fSize 0 bag
