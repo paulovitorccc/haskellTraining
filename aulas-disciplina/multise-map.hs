@@ -1,4 +1,12 @@
-module MultisetMap ()
+module MultisetMap (insert,
+                    remove,
+                    search,
+                    union,
+                    intersection,
+                    minus,
+                    inclusion,
+                    MultisetMap.sum,
+                    size)
  where
 
 {- 
@@ -46,7 +54,7 @@ search elem bag
  - Faz a uniao deste Bag com otherBag. A uniao consiste em ter os elementos dos dois Bags com suas maiores quantidades.
  - Por exemplo, A = {(a,1),(c,3)}, B = {(b,2),(c,1)}. A.union(B) deixa A = {(a,1),(c,3),(b,2)}
 -}
-fUnion k l r = (max l r)
+fUnion _ l r = (max l r)
 union bag1 bag2 = Map.unionWithKey fUnion bag1 bag2
 
 {-
@@ -54,7 +62,7 @@ union bag1 bag2 = Map.unionWithKey fUnion bag1 bag2
  - menores quantidades. Por exemplo, Seja A = {(a,3),(b,1)} e B = {(a,1)}. Assim, A.intersection(B) deixa A = {(a,1)}
  - Caso senhum elemento de A esteja contido em B ent�o a intersecao deixa A vazio.
 -}
-fIntersection k l r = (min l r)
+fIntersection _ l r = (min l r)
 intersection bag1 bag2 = Map.intersectionWithKey fIntersection bag1 bag2
 
 {-
@@ -64,7 +72,7 @@ intersection bag1 bag2 = Map.intersectionWithKey fIntersection bag1 bag2
      Caso essa quantidade seja negativa o elemento deve serremovido do Bag. 
      Por exemplo, seja A = {(a,3),(b,1)} e B = {(b,2),(a,1)}. Assim, A.minus(B) deixa A = {(a,2)}.
 -}
-fInterMinus k l r = l-r
+fInterMinus _ l r = l-r
 minus bag1 bag2 = Map.filter (> 0) bagMinus
     where bagMinus = union (bag1 Map.\\ bag2) (Map.intersectionWithKey fInterMinus bag1 bag2) 
 

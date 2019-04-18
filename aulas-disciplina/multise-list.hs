@@ -1,5 +1,5 @@
 module MultisetList (insert)
- where 
+    where 
 
 {- 
  - Um multi-conjunto (ou bag) é uma estrutura que representa uma coleção de objetos que 
@@ -44,9 +44,9 @@ search elem bag
  - Por exemplo, A = {(a,1),(c,3)}, B = {(b,2),(c,1)}. A.union(B) deixa A = {(a,1),(c,3),(b,2)}
 -}
 setQtd [] x newQtd = []
-setQtd (x:xs) a newQtd 
+setQtd (x:xs) a newQtd
     | (fst x) == a = (fst x, newQtd) : xs
-    | otherwise = x : (setQtd xs a newQtd) 
+    | otherwise = x : (setQtd xs a newQtd)
 
 union bag1 [] = bag1
 union bag1 (x:xs)
@@ -58,7 +58,13 @@ union bag1 (x:xs)
  - menores quantidades. Por exemplo, Seja A = {(a,3),(b,1)} e B = {(a,1)}. Assim, A.intersection(B) deixa A = {(a,1)}
  - Caso senhum elemento de A esteja contido em B ent�o a intersecao deixa A vazio.
 -}
-intersection bag1 bag2 = undefined
+intersection [] _ = [] 
+intersection (x:xs) bag2
+    | qtdInBag2 == 0 = intersection xs bag2
+    | otherwise = if (snd x < qtdInBag2) 
+                  then [x] ++ intersection xs bag2 
+                  else [((fst x), qtdInBag2)] ++ intersection xs bag2
+    where qtdInBag2 = search (fst x) bag2
 
 {-
  - Faz a diferenca deste Bag com otherBag. A diferenca A \ B entre bags eh definida como segue:
