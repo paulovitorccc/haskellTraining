@@ -64,22 +64,29 @@ intersection bag1 bag2 = Map.intersectionWithKey fIntersection bag1 bag2
      Caso essa quantidade seja negativa o elemento deve serremovido do Bag. 
      Por exemplo, seja A = {(a,3),(b,1)} e B = {(b,2),(a,1)}. Assim, A.minus(B) deixa A = {(a,2)}.
 -}
-fInterMinus k l r = l - r
+fInterMinus k l r = l-r
 minus bag1 bag2 = Map.filter (> 0) bagMinus
     where bagMinus = union (bag1 Map.\\ bag2) (Map.intersectionWithKey fInterMinus bag1 bag2) 
-    
+
 {-
  - Testa se este Bag esta incluso em otherBag. Para todo elemento deste bag, sua quantidade
  - deve ser menor or igual a sua quantidade em otherBag.
 -}
-inclusion bag1 bag2 = undefined
+fInterInc k l r = r-l
+inclusion bag1 bag2
+    | bSub == Map.empty = if (filterInter == Map.empty) then True else False
+    | otherwise = False 
+    where bSub = bag1 Map.\\ bag2
+          bInterInc = Map.intersectionWithKey fInterInc bag1 bag2
+          filterInter = Map.filter (< 0) bInterInc
 
 {-
  - Realiza a soma deste Bag com otherBag. A soma de dois bags contem os elementos dos dois bags com suas quantidades somadas. 
 -}
-sum bag1 bag2 = undefined
+fSum k l r = l + r
+sum bag1 bag2 = Map.unionWithKey fSum bag1 bag2
 
 {-
  - Retorna a quantidade total de elementos no Bag
 -}
-size bag = undefined
+size bag = Map.size bag
