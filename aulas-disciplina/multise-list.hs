@@ -1,4 +1,8 @@
-module MultisetList (insert)
+module MultisetList (insert,
+                     remove,
+                     search,
+                     union,
+                     intersection)
     where 
 
 {- 
@@ -70,16 +74,23 @@ intersection (x:xs) bag2
  - Faz a diferenca deste Bag com otherBag. A diferenca A \ B entre bags eh definida como segue:
    - contem os elementos de A que nao estao em B
    - contem os elementos x de A que estao em B mas com sua quantidade subtraida (qtde em A - qtde em B). 
-     Caso essa quantidade seja negativa o elemento deve serremovido do Bag. 
+     Caso essa quantidade seja negativa o elemento deve ser removido do Bag. 
      Por exemplo, seja A = {(a,3),(b,1)} e B = {(b,2),(a,1)}. Assim, A.minus(B) deixa A = {(a,2)}.
 -}
-minus bag1 bag2 = undefined
+minusAux [] _ = []
+minusAux (x:xs) bag2 = [((fst x), (snd x) - qtdB2)] ++ minusAux xs bag2  
+    where qtdB2 = search (fst x) bag2
+minus bag1 bag2 = [x | x <- (minusAux bag1 bag2), (snd x) > 0]
 
 {-
  - Testa se este Bag esta incluso em otherBag. Para todo elemento deste bag, sua quantidade
  - deve ser menor or igual a sua quantidade em otherBag.
 -}
-inclusion bag1 bag2 = undefined
+inclusion [] _ = True 
+inclusion (x:xs) bag2
+    | (snd x) <= qtdCompare = inclusion xs bag2
+    | otherwise = False 
+    where qtdCompare = search (fst x) bag2 
 
 {-
  - Realiza a soma deste Bag com otherBag. A soma de dois bags contem os elementos dos dois bags com suas quantidades somadas. 
