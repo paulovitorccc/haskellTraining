@@ -27,10 +27,11 @@ insert elem bag
 - Caso a quantidade atinja 0 (ou menos), o elemento deve realmente ser removido da estrutura
 -}
 remove elem bag
-    | bag == Map.empty = Map.fromList [(elem,1)]
-    | isElement = Map.adjust (1 +) elem bag
-    | otherwise = Map.insert elem 1 bag
-    where isElement = List.elem elem (Map.keys bag)
+    | elemWithKey == Map.empty = bag
+    | otherwise = if (elemWithKey Map.! elem == 1) 
+        then Map.delete elem bag 
+        else Map.adjust (-1 +) elem bag   
+    where elemWithKey = Map.filterWithKey (\k _ -> k == elem) bag
 
 {-
  - Busca um elemento na estrutura retornando sua quantidade. Caso o elemento nao exista, retorna 0 como a quantidade.
@@ -42,6 +43,7 @@ search elem bag = undefined
  - Por exemplo, A = {(a,1),(c,3)}, B = {(b,2),(c,1)}. A.union(B) deixa A = {(a,1),(c,3),(b,2)}
 -}
 union bag1 bag2 = undefined
+-- function unionWith
 
 {-
  - Faz a intersecao deste Bag com otherBag. A intersecao consiste em ter os elementos que estao em ambos os bags com suas 
