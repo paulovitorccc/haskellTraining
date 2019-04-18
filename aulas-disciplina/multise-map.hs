@@ -54,7 +54,8 @@ union bag1 bag2 = Map.unionWithKey fUnion bag1 bag2
  - menores quantidades. Por exemplo, Seja A = {(a,3),(b,1)} e B = {(a,1)}. Assim, A.intersection(B) deixa A = {(a,1)}
  - Caso senhum elemento de A esteja contido em B ent�o a intersecao deixa A vazio.
 -}
-intersection bag1 bag2 = undefined
+fIntersection k l r = (min l r)
+intersection bag1 bag2 = Map.intersectionWithKey fIntersection bag1 bag2
 
 {-
  - Faz a diferenca deste Bag com otherBag. A diferenca A \ B entre bags eh definida como segue:
