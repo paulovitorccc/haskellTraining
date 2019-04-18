@@ -36,14 +36,18 @@ remove elem bag
 {-
  - Busca um elemento na estrutura retornando sua quantidade. Caso o elemento nao exista, retorna 0 como a quantidade.
 -}
-search elem bag = undefined
+search elem bag
+    | elemWithKey == Map.empty = 0
+    | otherwise = elemWithKey Map.! elem  
+    where elemWithKey = Map.filterWithKey (\k _ -> k == elem) bag
+
 
 {-
  - Faz a uniao deste Bag com otherBag. A uniao consiste em ter os elementos dos dois Bags com suas maiores quantidades.
  - Por exemplo, A = {(a,1),(c,3)}, B = {(b,2),(c,1)}. A.union(B) deixa A = {(a,1),(c,3),(b,2)}
 -}
-union bag1 bag2 = undefined
--- function unionWith
+fUnion k l r = (max l r)
+union bag1 bag2 = Map.unionWithKey fUnion bag1 bag2
 
 {-
  - Faz a intersecao deste Bag com otherBag. A intersecao consiste em ter os elementos que estao em ambos os bags com suas 
