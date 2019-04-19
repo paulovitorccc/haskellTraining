@@ -166,7 +166,9 @@ slice xs imin imax = sliceAux xs 1 imin imax
 - Insere um elemento em uma posicao especifica de uma lista. 
 - Ex: insertAt 7 4 [3,6,1,9,4] = [3,6,1,7,9,4]
 -}
-insertAt el pos xs = undefined
+insertAt el _ [] = [el]
+insertAt el 1 xs = el : xs
+insertAt el pos (x:xs) = x : insertAt el (pos-1) xs
 
 {-
 - Ordena uma lista em ordem crescente. Voce deve seguir a ideia do selectionsort onde os elementos 
