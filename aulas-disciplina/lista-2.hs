@@ -137,68 +137,75 @@ compact xs = compactAux xs []
 -- encode xs = undefined
 encode xs = compress [(y, meuLength k) | y <- xs, let k = verifyEquals y xs]
 
--- Questão 10
--- - Divide uma lista em duas sublistas onde o ponto de divisao é dado. Ex: split [3,6,1,9,4] 3 = [[3,6,1],[9,4]]
--- split xs i = undefined
-split xs i = [take i xs] ++ [drop i xs]
+{-
+- Divide uma lista em duas sublistas onde o ponto de divisao é dado. Ex: split [3,6,1,9,4] 3 = [[3,6,1],[9,4]]
+-}
+splitInit [] _ = []
+splitInit xs 0 = []
+splitInit (x:xs) i = x : splitInit xs (i-1)
 
+splitLast [] _ = []
+splitLast xs 0 = xs
+splitLast (x:xs) i = splitLast xs (i-1)
 
--- {-
--- - Extrai um pedaço (slice) de uma lista especificado por um intervalo. 
--- - Ex: slice [3,6,1,9,4] 2 4 = [6,1,9]
--- -}
--- slice xs imin imax = undefined
+split xs i = [splitInit xs i, splitLast xs i]
 
--- {-
--- - Insere um elemento em uma posicao especifica de uma lista. 
--- - Ex: insertAt 7 4 [3,6,1,9,4] = [3,6,1,7,9,4]
--- -}
--- insertAt el pos xs = undefined
+{-
+- Extrai um pedaço (slice) de uma lista especificado por um intervalo. 
+- Ex: slice [3,6,1,9,4] 2 4 = [6,1,9]
+-}
+sliceAux [] _ _ _ = []
+sliceAux (x:xs) i imin imax
+    | i > imax = []
+    | i >= imin = x : sliceAux xs (i+1) imin imax
+    | otherwise = sliceAux xs (i+1) imin imax
 
--- {-
--- - Ordena uma lista em ordem crescente. Voce deve seguir a ideia do selectionsort onde os elementos 
--- - menores sao trazidos para o inicio da lista um a um. Esta funcao ja esta implementada.
--- -}
--- minList [x] = x
--- minList (x:xs) = if (x < (minList xs)) then x else minList xs
+slice xs imin imax = sliceAux xs 1 imin imax 
 
--- remove e (x:xs) | e == x = xs
---                 | otherwise = x:(remove e xs)
--- sort [] = []
--- sort xs = x:ys 
---     where
---         x = minList xs
---         ys = sort (remove x xs) 
+{-
+- Insere um elemento em uma posicao especifica de uma lista. 
+- Ex: insertAt 7 4 [3,6,1,9,4] = [3,6,1,7,9,4]
+-}
+insertAt el pos xs = undefined
 
+{-
+- Ordena uma lista em ordem crescente. Voce deve seguir a ideia do selectionsort onde os elementos 
+- menores sao trazidos para o inicio da lista um a um. Esta funcao ja esta implementada.
+-}
+minList [x] = x
+minList (x:xs) = if (x < (minList xs)) then x else minList xs
 
--- -- {-
--- -- - Calcula a soma de todos os elementos de uma lista usando foldr.
--- -- -}
--- -- -- mySum xs = undefined
+remove e (x:xs) | e == x = xs
+                | otherwise = x:(remove e xs)
+sort [] = []
+sort xs = x:ys 
+    where
+        x = minList xs
+        ys = sort (remove x xs) 
 
+{-
+- Calcula a soma de todos os elementos de uma lista usando foldr.
+-}
+mySum xs = undefined
 
--- -- {-
--- -- - Dada a funcao max que retorna o maximo entre dois numeros, escreva uma funcao que usa a função
--- -- - foldr e max para retornar o maximo de uma lista se a lista não é vazia.
--- -- -}
--- -- maxList xs = undefined
+{-
+- Dada a funcao max que retorna o maximo entre dois numeros, escreva uma funcao que usa a função
+- foldr e max para retornar o maximo de uma lista se a lista não é vazia.
+-}
+maxList xs = undefined
 
+{-
+- Transforma uma string em uma palindrome acrescentando o reverso da string ao seu final sem usar a funcao reverse. 
+- Ex: buildPalindrome [1,2,3] = [1,2,3,3,2,1]. 
+-}
+buildPalindrome xs = undefined
 
--- -- - Transforma uma string em uma palindrome acrescentando o reverso da string ao seu final sem usar a funcao reverse. 
--- -- - Ex: buildPalindrome [1,2,3] = [1,2,3,3,2,1]. 
+{-
+- Computa a media dos elementos de uma lista de numeros, sem usar nenhuma funcao pronta de listas.
+-}
+mean xs = undefined
 
--- -- buildPalindrome xs = undefined
-
--- -- {-
--- -- - Computa a media dos elementos de uma lista de numeros, sem usar nenhuma funcao pronta de listas.
--- -- -}
--- -- mean xs = undefined
-
--- -- {-
--- -- - Escreva a funcao myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr. 
--- -- -}
--- -- myAppend xs ys = undefined
-
-
-
-
+{-
+- Escreva a funcao myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr. 
+-}
+myAppend xs ys = undefined
