@@ -208,9 +208,9 @@ buildPalindrome xs = xs ++ buildPalindromeAux xs
 {-
 - Computa a media dos elementos de uma lista de numeros, sem usar nenhuma funcao pronta de listas.
 -}
-mean xs = undefined
+mean xs = mySum xs / meuLength xs
 
 {-
 - Escreva a funcao myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr. 
 -}
-myAppend xs ys = undefined
+myAppend xs ys = foldr (:) ys xs
