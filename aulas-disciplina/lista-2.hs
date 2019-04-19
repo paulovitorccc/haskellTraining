@@ -188,19 +188,22 @@ sort xs = x:ys
 {-
 - Calcula a soma de todos os elementos de uma lista usando foldr.
 -}
-mySum xs = undefined
+mySum xs = foldr (+) 0 xs
 
 {-
 - Dada a funcao max que retorna o maximo entre dois numeros, escreva uma funcao que usa a função
 - foldr e max para retornar o maximo de uma lista se a lista não é vazia.
 -}
-maxList xs = undefined
+maxList xs = foldr (\x y -> max x y) 0 xs
 
 {-
 - Transforma uma string em uma palindrome acrescentando o reverso da string ao seu final sem usar a funcao reverse. 
 - Ex: buildPalindrome [1,2,3] = [1,2,3,3,2,1]. 
 -}
-buildPalindrome xs = undefined
+buildPalindromeAux [] = []
+buildPalindromeAux xs = last xs : buildPalindromeAux (init xs)
+
+buildPalindrome xs = xs ++ buildPalindromeAux xs
 
 {-
 - Computa a media dos elementos de uma lista de numeros, sem usar nenhuma funcao pronta de listas.
