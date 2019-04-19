@@ -3,9 +3,7 @@
 -- - impl (implicacao A => B é equivalente a (not A or B)) e equiv (A <=> B é definido como A => B and B => A)
 -- - Procure usar casamento de padroes e reutilizar as funcoes.
 -- xor a b = undefined
-xor False False = False
-xor True True = False
-xor _ _ = True
+xor a b = (not (a && b)) && (a || b)
 
 -- Questão 2
 -- impl a b = undefined
@@ -54,11 +52,14 @@ mdcAux x y = mdcAux y (mod x y)
 -- Questão 9
 -- - Calcula um MMC de dois numeros. 
 -- mmc x y = undefined
-mmc x y = (x*y) / (mdc x y)
+-- mmc x y = (mdc x y)
 
 -- - Determina se dois numeros inteiros positivos sao co-primos. Dois numeros sao co-primos se 
 -- - o mdc deles for igual a 1. Ex: coprimo 35 64 = True 
--- coprimo x y = undefined
+-- coprimo x y = if (mmc x y == 1) then True else False
 
--- - Calcula a conjectura de Goldbach, que diz que um numero par maior que 2 pode ser escrito como a soma de dois numeros primos. Ex: 28 = 5 + 23.
--- goldbach x = undefined
+-- - Calcula a conjectura de Goldbach, que diz que um numero par maior que 2 pode ser escrito 
+--   como a soma de dois numeros primos. Ex: 28 = 5 + 23.
+goldbach x = (coPrimes !! 0, x-(coPrimes !! 0))
+    where primesToX = [p | p <- [1..x], isPrime p] 
+          coPrimes = [y | y <- primesToX, isPrime (x-y)]
