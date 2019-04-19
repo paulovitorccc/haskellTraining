@@ -51,9 +51,18 @@ mdcAux x y = mdcAux y (mod x y)
 
 -- Questão 9
 -- - Calcula um MMC de dois numeros. 
--- mmc x y = undefined
--- mmc x y = (mdc x y)
+{-numDiv x y z
+    | divd = z
+    | otherwise = numDiv x y (z+1)
+    where divd = (mod x z == 0) || (mod y z == 0)
 
+factors 1 1 = []
+factors x y
+    | (mod x d == 0) && (mod y d == 0) = [d] ++ factors (x/d) (y/d)
+    | (mod x d == 0) = [d] ++ factors (x/d) y
+    | otherwise = [d] ++ factors x (y/d)
+    where d = numDiv x y (min x y) 
+-}
 -- - Determina se dois numeros inteiros positivos sao co-primos. Dois numeros sao co-primos se 
 -- - o mdc deles for igual a 1. Ex: coprimo 35 64 = True 
 -- coprimo x y = if (mmc x y == 1) then True else False
