@@ -34,10 +34,11 @@ search x bst@(Node a left right)
 -- --retorna o elmento maximo da BST
 -- maximum = undefined
 -- maximumAux x (NIL) = x 
--- maximumAux x (Node a left right) = 
+-- maximumAux x (Node a left NIL) = maximumAux a right
 
--- maximum (NIL) = NIL
--- maximum bst@(Node a left right) = maximumAux a bst
+-- maximum' (NIL) = NIL
+-- maximum' bst@(Node a _ NIL) = a
+-- maximum' bst@(Node a left right) = maximum' right
 
 -- --retorna o elemento minimo da BST
 -- minimum = undefined
@@ -52,6 +53,14 @@ search x bst@(Node a left right)
 -- remove = undefined
 
 -- --retorna uma lista com os dados da BST nos diversos tipos de caminhamento
--- preOrder = undefined
 -- order = undefined
+-- preOrder = undefined
 -- postOrder = undefined
+order (NIL) = print ""
+order (Node a left right) = order left ++ print a ++ order right
+
+preorder (NIL) = []
+preorder (Node a left right) = [a] ++ order left ++ order right
+
+postorder (NIL) = []
+postorder (Node a left right) = order left ++ order right ++ [a]

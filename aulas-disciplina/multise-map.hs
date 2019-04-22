@@ -80,7 +80,7 @@ minus bag1 bag2 = Map.filter (> 0) bagMinus
  - Testa se este Bag esta incluso em otherBag. Para todo elemento deste bag, sua quantidade
  - deve ser menor or igual a sua quantidade em otherBag.
 -}
-fInterInc k l r = r-l
+fInterInc _ l r = r-l
 inclusion bag1 bag2
     | bSub == Map.empty = if (filterInter == Map.empty) then True else False
     | otherwise = False 

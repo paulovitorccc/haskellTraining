@@ -58,8 +58,10 @@ mapFilter f p xs = filter p (map f xs)
 -- - Encontra o ultimo elemento de uma lista. Caso a lista seja vazia retorne o seguinte comando: error "Lista vazia!" 
 -- -}
 -- meuLast xs = undefined
-meuLast [] = error "Lista vazia!"
-meuLast xs = last xs
+meuLast lt@(x:xs) 
+    | length lt == 0 = error "Lista vazia não tem last"
+    | length lt == 1 = x
+    | otherwise = meuLast xs 
 
 -- Questão 2
 -- {-
