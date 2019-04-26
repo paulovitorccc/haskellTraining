@@ -5,6 +5,15 @@ Implemente esta função de uma maneira mais eficiente, contendo apenas uma recu
 fib x = undefined
 -}
 
+fibAux 0 list = last list
+fibAux x list = fibAux (x-1) (list++[(f1+f2)])
+    where f1 = last list
+          f2 = last (init list) 
+
+fib 0 = 0 
+fib 1 = 1
+fib x = fibAux (x-1) [0,1]
+
 {-
 Questão 2
 Implemente uma função que recebe como parâmetro uma lista e um numero k, e 
@@ -19,9 +28,11 @@ Implemente as seguintes funções operando com uma bst:
 Construtor da bst: 
 data BinaryTree a = NIL | Node a (BinaryTree a) (BinaryTree a) deriving (Eq,Show,Ord)
 
-a) search 
-b) 
-c) mirror
-d) profundidade
-e) mapTree
+a) search - que retorna True se o elemento x está na bst e False 
+caso contrário.
+b) leaves - retorna uma lista com todas as folhas da bst
+c) mirror - retorna a bst com seus filhos trocados/espelhada
+d) profundidade - retorna a profundidade de um elemento x, se não 
+fazer parte da lista retorna -1.
+e) mapTree - aplica uma função f a cada elemento da bst.
 -}
