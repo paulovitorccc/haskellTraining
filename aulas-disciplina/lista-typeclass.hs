@@ -58,7 +58,40 @@ instance Ord TIME where
                                      (Local a b c) == (Total ai bi)
     (Total a b) >= (Local ai bi ci) = (Local ai bi ci) <= (Total a b)
 
-
+-- Questão 5
+instance Show TIME where
+    show (Local a b AM) = (show a) ++ [':'] ++ (show b) ++ " am"
+    show (Local a b PM) = (show a) ++ [':'] ++ (show b) ++ [' ', 'p', 'm']
+    show (Total a b) = (show a) ++ ['h'] ++ (show b) ++ ['m']
     
+-- Questão 6
+seleciona :: TIME -> [(TIME,String)] -> [(TIME,String)]    
+seleciona time timesFilms = filter (\x -> (fst x) > time) timesFilms
 
 
+class FigFechada a where
+    area :: a -> Float
+    perimetro :: a -> Float
+
+fun figs = filter (\fig -> (area fig) > 100) figs
+
+type Ponto = (Float,Float)
+type Lado = Float
+data Rectangulo = PP Ponto Ponto | PLL Ponto Lado Lado
+
+instance FigFechada Rectangulo where
+    area (PP (a, b) (c, d)) = (abs (a-c)) * (abs (b-d)) 
+    area (PLL (a, b) c d) = c * d
+    perimetro (PP (a, b) (c, d)) = (abs (a-c))*2 + (abs (b-d))*2
+    perimetro (PLL (a, b) c d) = c*2 + d*2
+
+somaAreas :: FigFechada a => [a] -> Float
+somaAreas listRec = sum (map (\x -> area x) listRec)
+
+instance Enum TIME where
+    fromEnum a = 20
+    toEnum (Total a b) = [(Total [0..2] [0..2])]
+    succ (Total a b)
+        | b == 59 = (Total (a+1) 0)
+        | otherwise = (Total a (b+1))
+    
